@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Amora Real Estate"
+description = "A luxury real estate agency landing page for Amora — showcasing premium residential properties with cinematic hero sections, project galleries, and investment call-to-actions."
+version = "1.0.0"
+id = "artifacts/amora"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22829
+
+[services.development]
+run = "pnpm --filter @workspace/amora run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/amora", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/amora/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22829"
+BASE_PATH = "/"
